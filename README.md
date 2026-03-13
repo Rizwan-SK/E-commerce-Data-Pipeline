@@ -15,36 +15,50 @@ Before running this project, ensure you have the following installed on your mac
 * **Python 3.8+**
 * **PostgreSQL** (running locally on port `5432`)
 * **Git**
+* **Jupyter Notebook**
+
+---
 
 ## Quick Start Setup & Execution
 
-You can set up the environment, database, and run the entire pipeline using the following sequence of commands. 
+Because this project is built for easy demonstration, the entire ETL pipeline, database schema creation, and mock data generation are contained within a single Jupyter Notebook.
 
-*(Note: Windows users should use `venv\Scripts\activate` to activate the virtual environment).*
-
+### 1. Database Setup
+Ensure your local PostgreSQL server is running. Create a blank database named `ecommerce_db` using your preferred SQL client (like pgAdmin or DBeaver) or via your terminal:
 ```bash
-# 1. Clone the repository and navigate into it
-git clone <your-github-repo-url>
-cd <your-repo-folder>
+psql -U postgres -c "CREATE DATABASE ecommerce_db;"
+```
 
-# 2. Create and activate a Python virtual environment (Mac/Linux)
-python -m venv venv
-source venv/bin/activate
-
-# 3. Install required dependencies from requirements.txt
+### 2. Environment Setup
+Open your terminal, clone this repository, and install the necessary Python dependencies:
+```bash
+git clone [https://github.com/Rizwan-SK/E-commerce-Data-Pipeline.git](https://github.com/Rizwan-SK/E-commerce-Data-Pipeline.git)
+cd E-commerce-Data-Pipeline
 pip install -r requirements.txt
+```
 
-# 4. Create the Postgres database and run the schema setup
-# (Assuming your local postgres user is 'postgres')
-psql -U postgres -c "CREATE DATABASE ecommerce_dw;"
-psql -U postgres -d ecommerce_dw -f setup_schema.sql
+### 3. Run the Pipeline
+Once the requirements are installed, launch the Jupyter interface from your terminal:
+```bash
+jupyter notebook
+```
+1. In the browser window that opens, click on `Data Engineering Project.ipynb`.
+2. Locate the code cells containing the `DB_CONN` variable and ensure the password matches your local Postgres password.
+3. Click **"Run All"** at the top of the notebook.
 
-# 5. Generate the mock data (creates the JSON and CSV files)
-python generate_mock_data.py
+**The notebook will automatically:**
+* Generate the mock S3 JSON and local CSV files.
+* Build the Postgres staging and analytics tables.
+* Run the Prefect data orchestrator to extract, transform, and load the data.
+* Display the final business reports directly on the screen.
 
-# 6. Run the Prefect ETL pipeline
-python prefect_pipeline.py
+---
 
-# 7. (Optional) Start the Prefect UI server to view flow logs
-# Note: This runs continuously, so you can open it in [http://127.0.0.1:4200](http://127.0.0.1:4200)
-prefect server start
+## How to Test the Automation (Idempotency)
+To see the pipeline adapt to new data without duplicating existing records:
+1. Open the generated `inventory_on_prem.csv` file on your computer.
+2. Find any product and change its `stock_level` to `1` (forcing it below the threshold) and save the file.
+3. Go back to the Jupyter Notebook and re-run *only* the **Prefect Pipeline cell** (the second to last cell).
+4. Re-run the **Display cell** (the final cell). 
+
+You will instantly see your newly edited product appear in the Restock Alerts table!
