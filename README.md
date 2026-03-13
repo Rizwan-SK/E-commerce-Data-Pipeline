@@ -32,7 +32,7 @@ psql -U postgres -c "CREATE DATABASE ecommerce_db;"
 ### 2. Environment Setup
 Open your terminal, clone this repository, and install the necessary Python dependencies:
 ```bash
-git clone [https://github.com/Rizwan-SK/E-commerce-Data-Pipeline.git](https://github.com/Rizwan-SK/E-commerce-Data-Pipeline.git)
+git clone https://github.com/Rizwan-SK/E-commerce-Data-Pipeline.git
 cd E-commerce-Data-Pipeline
 pip install -r requirements.txt
 ```
