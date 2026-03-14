@@ -17,6 +17,53 @@ Before running this project, ensure you have the following installed on your mac
 * **Git**
 
 ---
+---
+
+## Pipeline Architecture (The DAG)
+
+The pipeline is orchestrated using **Prefect**, moving data through a Directed Acyclic Graph (DAG) to ensure task dependency and strict state management.
+
+### 1. Extracting Source Files
+* **Hybrid Ingestion:** Simultaneously pulls cloud-mocked sales data (JSON) and on-premise inventory records (CSV).
+* **Validation:** Tasks are configured to fail fast if source files are missing or corrupted, protecting downstream analytics.
+
+### 2. Generating Business Insights
+* **Transformation Layer:** Utilizes **Pandas** to perform an outer join on the product ID. This ensures stock levels are monitored for every item, even those with zero sales for the day.
+* **Calculated Fields:** Automatically computes total revenue, average sale value, and units sold per category.
+* **Alert Logic:** Identifies low-stock items by comparing current inventory against designated safety thresholds.
+
+### 3. Updating Analytics Tables
+* **Data Persistence:** Loads the finalized DataFrames into a **PostgreSQL** data warehouse.
+* **Idempotency Strategy:** Implements a "Truncate-and-Load" method. This ensures the pipeline can be re-run indefinitely without creating duplicate records or data bloat.
+
+---
+
+## Database Schema (PostgreSQL)
+
+The final output is stored across two primary analytics tables, designed for high-performance reporting.
+
+### 1. Revenue by Category (`revenue_by_category`)
+
+| Column | Type | Description |
+| :--- | :--- | :--- |
+| **category** | String | Product category from the merge |
+| **total_revenue** | Float | Sum of revenue per category |
+| **avg_sale_value** | Float | Calculated average value per sale |
+| **total_units_sold** | Integer | Total units moved per category |
+| **last_updated** | Timestamp | Proof of the latest pipeline execution |
+
+### 2. Restock Alerts (`restock_alerts`)
+
+| Column | Type | Description |
+| :--- | :--- | :--- |
+| **product_id** | String | Unique identifier for the item |
+| **category** | String | Product category |
+| **current_stock** | Integer | Units remaining in the warehouse |
+| **threshold** | Integer | Minimum stock level for alerting |
+| **units_below_threshold** | Integer | Gap between current stock and safety level |
+| **status** | String | Set to 'LOW_STOCK' via transformation logic |
+
+---
 
 ## Quick Start Setup & Execution
 
