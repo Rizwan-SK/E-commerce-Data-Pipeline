@@ -41,7 +41,7 @@ psql -U postgres -c "CREATE DATABASE ecommerce_db;"
 Open your terminal, clone this repository, and isolate the dependencies using a virtual environment:
 
 ```bash
-git clone [https://github.com/Rizwan-SK/E-commerce-Data-Pipeline.git](https://github.com/Rizwan-SK/E-commerce-Data-Pipeline.git)
+git clone https://github.com/Rizwan-SK/E-commerce-Data-Pipeline.git
 cd E-commerce-Data-Pipeline
 
 # Create a virtual environment
