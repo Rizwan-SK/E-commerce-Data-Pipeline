@@ -52,10 +52,9 @@ source venv/bin/activate
 # Activate the environment (Windows)
 # venv\Scripts\activate
 
-# Install the necessary dependencies
+# Install the necessary dependencies (including Jupyter)
 pip install --upgrade pip
 pip install -r requirements.txt
-pip install notebook
 ```
 
 ### 3. Run the Pipeline
