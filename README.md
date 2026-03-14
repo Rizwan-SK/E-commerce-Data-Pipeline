@@ -17,7 +17,7 @@ Before running this project, ensure you have the following installed on your mac
 * **Git**
 
 ---
----
+
 
 ## Pipeline Architecture (The DAG)
 
