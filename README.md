@@ -82,7 +82,7 @@ jupyter notebook
 
 To see the pipeline adapt to new data without duplicating existing records:
 
-1. Open the generated `inventory_on_prem.csv` file on your computer.
+1. Locate the generated `inventory_on_prem.csv` file **in your computer's file explorer** (Finder or Windows Explorer) and open it with a native editor (like Excel, Numbers, or Notepad).
 2. Find any product and change its `stock_level` to `1` (forcing it below the threshold) and save the file.
 3. Go back to the Jupyter Notebook and re-run only the **Prefect Pipeline cell** (the second to last cell).
 4. Re-run the **Display cell** (the final cell).
