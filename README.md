@@ -78,7 +78,7 @@ jupyter notebook
 * Display the final business reports directly on the screen.
 
 
-### How to Test the Automation (Idempotency)
+### 4. How to Test the Automation (Idempotency)
 
 To see the pipeline adapt to new data without duplicating existing records:
 
