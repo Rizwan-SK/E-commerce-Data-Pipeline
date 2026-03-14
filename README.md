@@ -15,7 +15,6 @@ Before running this project, ensure you have the following installed on your mac
 * **Python 3.8+**
 * **PostgreSQL** (running locally on port `5432`)
 * **Git**
-* **Jupyter Notebook**
 
 ---
 
