@@ -48,7 +48,9 @@ python3 -m venv venv
 
 # Activate the environment (Mac/Linux)
 source venv/bin/activate
+
 # Activate the environment (Windows)
+# Note: Remove the '#' below if running on Windows CMD/PowerShell
 # venv\Scripts\activate
 
 # Install the necessary dependencies (including Jupyter)
