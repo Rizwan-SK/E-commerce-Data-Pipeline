@@ -110,7 +110,7 @@ If you hit any errors during setup, check these common fixes:
 * **`SyntaxError: invalid syntax`**: You are likely typing terminal commands inside the Python interpreter (your prompt shows `>>>`). Type `exit()` and hit Enter to return to your normal terminal, then run your setup commands.
 * **`zsh: command not found: psql`**: Postgres tools are not in your system PATH. For Mac, install Postgres.app. For Windows, add the Postgres `/bin` folder to your System Environment Variables.
 * **`zsh: command not found: pip`**: Try using `pip3` instead of `pip` or ensure your virtual environment is activated.
-* **`zsh: command not found: jupyter`**: Jupyter is not installed in your active environment. Ensure you ran `pip install notebook`.
+* **`zsh: command not found: jupyter`**: Jupyter is not installed in your active environment. Ensure `notebook` is listed in your `requirements.txt` file and rerun the `pip install -r requirements.txt` command.
 * **`FATAL: database "ecommerce_db" does not exist`**: The pipeline cannot find the target database. Ensure you successfully completed Step 1.
-* **`ConnectError: [Errno 61]`**: This is a Prefect background server port conflict. If you run the pipeline a second time in the same session, Prefect's local logger can hang. Click **"Kernel" -> "Restart Kernel and Run All"**.
+* **`ConnectError: [Errno 61]`**: This is a Prefect background server port conflict. If you run the pipeline a second time in the same session, Prefect's local logger can hang. Click **Kernel → Restart Kernel and Run All**.
 * **`UnicodeDecodeError: 'utf-8'`**: Your mock data files may have corrupted text encoding from being opened in standard text editors. Delete the `inventory_on_prem.csv` and `daily_sales_s3.json` files and rerun the notebook to generate fresh ones.
